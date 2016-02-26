@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226051534) do
+ActiveRecord::Schema.define(version: 20160226060437) do
 
   create_table "locks", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20160226051534) do
     t.integer  "content_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "visit_id"
   end
 
   add_index "visit_histories", ["user_id", "content_id"], name: "index_visit_histories_on_user_id_and_content_id"

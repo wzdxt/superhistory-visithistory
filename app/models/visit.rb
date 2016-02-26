@@ -10,7 +10,7 @@ class Visit < ActiveRecord::Base
         until page.target_page.nil? or page.target_page == page
           page = page.target_page
         end
-        VisitHistory.visit(v.user_id, page.id, v.created_at)
+        VisitHistory.visit(v.user_id, page.id, v.created_at, v.id)
       else
         break next_id = v.id
       end
