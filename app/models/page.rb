@@ -13,7 +13,8 @@ class Page < ActiveRecord::Base
 
   include StatusFeature
 
-  def PROCESSED?
-    self.SUCCESS? or self.REDIRECT? or self.ERROR_ON_OPEN? or self.ERROR_OTHER? or self.HTTP_STATUS_NOT_200? or self.SAME_CONTENT_HASH?
+  def CAN_VIEW?
+    self.SUCCESS? or self.REDIRECT? or self.SAME_CONTENT_HASH?
   end
+
 end
