@@ -16,8 +16,4 @@ class Page < ActiveRecord::Base
   def PROCESSED?
     !self.NOT_PROCESSED?
   end
-
-  def CAN_VIEW?
-    self.SUCCESS? or self.REDIRECT? or self.SAME_CONTENT_HASH?
-  end
 end
