@@ -6,11 +6,13 @@ class Visit < ActiveRecord::Base
   def self.process_from(start_id)
     next_id = -1
     self.from_id(start_id).each do |v|
-      if v.page_id and page = Page.find_by_id(v.page_id) and page.CAN_VIEW?
-        until page.target_page.nil? or page.target_page == page
-          page = page.target_page
+      if v.page_id and page = Page.find_by_id(v.page_id) and page.PROCESSED?
+        if page.CAN_VIEW?
+          until page.target_page.nil? or page.target_page == page
+            page = page.target_page
+          end
+          VisitHistory.visit(v.user_id, page.id, v.created_at, v.id)
         end
-        VisitHistory.visit(v.user_id, page.id, v.created_at, v.id)
       else
         break next_id = v.id
       end
