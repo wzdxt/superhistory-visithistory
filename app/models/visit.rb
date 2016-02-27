@@ -5,7 +5,8 @@ class Visit < ActiveRecord::Base
 
   def self.process_from(start_id)
     next_id = -1
-    self.from_id(start_id).each do |v|
+    wait_list = self.from_id(start_id)
+    wait_list.each do |v|
       if v.page_id and page = Page.find_by_id(v.page_id) and page.PROCESSED?
         until page.target_page.nil? or page.target_page == page
           page = page.target_page
@@ -17,6 +18,10 @@ class Visit < ActiveRecord::Base
         break next_id = v.id
       end
     end
-    next_id > 0 ? next_id : self.from_id(start_id).last.id + 1
+    if next_id > 0 then
+      next_id
+    else
+      wait_list.present? ? self.from_id(start_id).last.id + 1 : start_id
+    end
   end
 end

@@ -3,7 +3,7 @@ default: &default
 development:
   <<: *default
   http_triggers:
-    self: http://localhost:3000/
+    self: http://localhost:13000/
 
 test:
   <<: *default
